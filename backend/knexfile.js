@@ -8,11 +8,15 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
+       connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+      /*
       host: 'localhost',
       user: process.env.DBUSER,
       password: process.env.DBPASSWORD,
       database: process.env.DBNAME,
       port:process.env.PORT
+      */
     },
     migrations:{
       directory: './migrations'
@@ -39,12 +43,11 @@ module.exports = {
   },
 
   production: {
-    client: 'postgresql',
+    client: 'pg',
     connection: {
-      database: 'my_db',
-      user:     'username',
-      password: 'password'
-    },
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+},
     pool: {
       min: 2,
       max: 10
