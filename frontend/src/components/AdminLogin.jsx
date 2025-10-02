@@ -32,7 +32,7 @@ const AdminLogin = () => {
       if (response.ok) {
         const data = await response.json();
         alert(data.message);
-        navigate('/#/admin/poll')
+        navigate('/admin/poll')
       } else {
         console.log("Response is not okay");
       }

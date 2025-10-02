@@ -75,7 +75,7 @@ const AdminPolls = () => {
 
           {/* ✅ Create Poll Button */}
           <button
-            onClick={() => navigate("/#/admin/create")}
+            onClick={() => navigate('/admin/create')}
             className="mt-4 sm:mt-0 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition"
           >
             ➕ Create Poll

@@ -51,7 +51,7 @@ const VoterLogin = () => {
       if (response.ok) {
         const data = await response.json();
         alert(data.message);
-        navigate('/#/vote/:token');
+        navigate('/vote/:token');
       } else {
         console.error("Error submitting data");
       }
