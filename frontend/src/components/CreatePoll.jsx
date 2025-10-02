@@ -57,7 +57,7 @@ const api_url="https://secure-vote-bawo.onrender.com"
 
       if (res.ok) {
         setMessage(data.message || "✅ Poll created successfully!");
-        navigate('/admin/poll')
+        navigate('/#/admin/poll')
         setPosition("");
         setDescription("");
         setCandidates([{ name: "", image: null }]);

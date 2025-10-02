@@ -32,7 +32,7 @@ const AdminSignup = () => {
       if (response.ok) {
         const data = await response.json();
         alert(data.message);
-        navigation('/admin/create')
+        navigation('/#/admin/create')
       } else {
         console.log("Response is not okay");
       }
