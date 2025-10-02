@@ -9,7 +9,7 @@ app.use(express.json())
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use(cookieParser())
 app.use(cors({
-    origin: 'https://secure-vote-frontend-11q2.onrender.com/',
+    origin: 'https://secure-vote-frontend-11q2.onrender.com',
     credentials: true
 }))
 
