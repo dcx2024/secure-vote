@@ -6,7 +6,7 @@ const CreatePoll = () => {
   const [description, setDescription] = useState("");
   const [candidates, setCandidates] = useState([{ name: "", image: null }]);
   const [message, setMessage] = useState("");
-
+const api_url="https://secure-vote-bawo.onrender.com"
   // Add new candidate field
   const addCandidate = () => {
     setCandidates([...candidates, { name: "", image: null }]);
@@ -47,7 +47,7 @@ const CreatePoll = () => {
         }
       });
 
-      const res = await fetch("http://localhost:3000/admin/createPoll", {
+      const res = await fetch(`${api_url}/admin/createPoll`, {
         method: "POST",
         body: formData,
         credentials: "include",

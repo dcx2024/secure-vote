@@ -38,8 +38,9 @@ const VoterLogin = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    const api_url ="https://secure-vote-bawo.onrender.com"
     try {
-      const response = await fetch("http://localhost:3000/voter/voterLogin", {
+      const response = await fetch(`${api_url}/voter/voterLogin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

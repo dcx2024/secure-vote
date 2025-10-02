@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AdminSignup = () => {
+  const api_url="https://secure-vote-bawo.onrender.com"
   const navigation=useNavigate()
   const [showPassword, setShowPassword] = useState(false);
 
@@ -20,7 +21,7 @@ const AdminSignup = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/admin/signup", {
+      const response = await fetch(`${api_url}/admin/signup`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // ✅ for navigation
 
 const AdminPolls = () => {
+  const api_url="https://secure-vote-bawo.onrender.com"
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -11,7 +12,7 @@ const AdminPolls = () => {
   useEffect(() => {
     const fetchPolls = async () => {
       try {
-        const res = await fetch("http://localhost:3000/admin/adminPolls", {
+        const res = await fetch(`${api_url}/admin/adminPolls`, {
           method: "GET",
           credentials: "include",
         });
@@ -35,7 +36,7 @@ const AdminPolls = () => {
 
   const handleShare = async () => {
     try {
-      const res = await fetch("http://localhost:3000/admin/share", {
+      const res = await fetch(`${api_url}/admin/share`, {
         method: "POST",
         credentials: "include",
       });

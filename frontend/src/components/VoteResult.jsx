@@ -7,8 +7,9 @@ const PollResults = ({ token }) => {
 
   useEffect(() => {
     const fetchResults = async () => {
+      const api_url="https://secure-vote-bawo.onrender.com"
       try {
-        const res = await fetch("http://localhost:3000/voter/result", {
+        const res = await fetch(`${api_url}/voter/result`, {
           method: "GET",
           credentials: "include", // important so cookie is sent
         });

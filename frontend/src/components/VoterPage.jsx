@@ -28,7 +28,8 @@ const VotePage = () => {
   useEffect(() => {
     const fetchPolls = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/admin/share/${token}`);
+        const api_url="https://secure-vote-bawo.onrender.com"
+        const res = await fetch(`${api_url}/admin/share/${token}`);
         const data = await res.json();
 
         if (!res.ok) {
@@ -71,7 +72,8 @@ const VotePage = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/voter/castVote", {
+      const api_url="https://secure-vote-bawo.onrender.com"
+      const res = await fetch(`${api_url}/voter/castVote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
