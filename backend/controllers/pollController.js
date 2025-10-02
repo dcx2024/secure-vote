@@ -43,8 +43,8 @@ const generateShareLink =async(req,res)=>{
 
       // Generate or refresh token
       const token = await Poll.generateShareToken(admin_id);
-        const BASE_URL='http://localhost:5173'
-      const shareableLink = `${BASE_URL}/vote/${token}`;
+        const BASE_URL='https://secure-vote-frontend-11q2.onrender.com/'
+      const shareableLink = `${BASE_URL}/#/vote/${token}`;
       return res.status(200).json({
         message: "Shareable link generated successfully",
         link: shareableLink
