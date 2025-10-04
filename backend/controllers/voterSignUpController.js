@@ -22,6 +22,7 @@ const signup= async(req,res)=>{
             sameSite: 'None',
             maxAge: 24 * 60 * 60 * 100
         })
+        
         console.log('Signup successful')
         res.status(200).json({message:"SIngup successful"})
 
