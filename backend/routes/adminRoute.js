@@ -2,7 +2,7 @@ const express=require('express')
 const router=express.Router()
 const {signUp, login} = require('../controllers/adminSignUpController')
 const upload = require('../middleware/upload')
-const authentication=require('../middleware/authMiddleware')
+const {authentication}=require('../middleware/authMiddleware')
 const {createPoll,
   generateShareLink,
   fetchSharedPolls,
