@@ -92,7 +92,7 @@ const VotePage = () => {
       if (res.status === 401 || res.status === 403) {
         // 🧭 Redirect to login if not authenticated
         setMessage("⚠️ Please log in to vote.");
-        setTimeout(() => navigate("/login"), 2000);
+        setTimeout(() => navigate("/"), 2000);
         return;
       }
 
