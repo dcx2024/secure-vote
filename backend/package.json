@@ -11,5 +11,19 @@
     "nanoid": "^5.1.6",
     "pg": "^8.16.3",
     "uuid": "^13.0.0"
-  }
+  },
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "knexfile.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "migrate": "npx knex migrate:latest",
+    "rollback": "npx knex migrate:rollback"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }
