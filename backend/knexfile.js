@@ -8,15 +8,15 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-       connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-      /*
+      /* connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }*/
+      
       host: 'localhost',
       user: process.env.DBUSER,
       password: process.env.DBPASSWORD,
       database: process.env.DBNAME,
-      port:process.env.PORT
-      */
+      port:5432
+      
     },
     migrations:{
       directory: './migrations'

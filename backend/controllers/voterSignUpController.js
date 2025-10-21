@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const knex=require('../config/db')
 const jwt= require('jsonwebtoken')
 const voter= require('../models/votersModel')
 
@@ -7,6 +7,11 @@ const signup= async(req,res)=>{
         const {full_name,phone_no,visitor_id}= req.body
         const ip = req.ip;
         
+        const existingVoter = await knex('voters').where({full_name,phone_no}).first()
+        if(existingVoter){
+            console.log('This user has already signed in and voted')
+            return res.status(400).json({error: "This user has already signed in and voted"})
+        }
 
         const newVoter= await voter.create({
             full_name,
@@ -24,7 +29,7 @@ const signup= async(req,res)=>{
         })
         
         console.log('Signup successful')
-        res.status(200).json({message:"SIngup successful"})
+        res.status(200).json({message:"Signup successful"})
 
     }catch(error){
         console.error('Error in signup process', error)

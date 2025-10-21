@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const VoterLogin = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const token = searchParams.get("token")
   const [visitorId, setVisitorId] = useState("");
 
   const [formData, setFormData] = useState({
@@ -20,7 +23,6 @@ const VoterLogin = () => {
         const result = await fp.get();
         setVisitorId(result.visitorId);
         setFormData((prev) => ({ ...prev, visitor_id: result.visitorId }));
-        console.log("Visitor ID:", result.visitorId);
       } catch (error) {
         console.error("FingerprintJS error:", error);
       }
@@ -38,9 +40,9 @@ const VoterLogin = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const api_url ="https://secure-vote-bawo.onrender.com"
+    const API_URL = "http://localhost:5000"
     try {
-      const response = await fetch(`${api_url}/voter/voterLogin`, {
+      const response = await fetch(`${API_URL}/voter/voterLogin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -49,13 +51,21 @@ const VoterLogin = () => {
         body: JSON.stringify(formData)
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        alert(data.message);
-        navigate('/vote/:token');
-      } else {
-        console.error("Error submitting data");
+      const data = await response.json();
+   
+
+      if (!response.ok) {
+        const errMsg = data.error || data.message || "Something went wrong";
+      toast.error(errMsg);
+      return;
       }
+      toast.success(data.message || "Login successful");
+
+        if (token) {
+          navigate(`/vote/${token}`)
+        } else {
+          navigate("/");
+        }
     } catch (error) {
       console.error("Error:", error);
     }

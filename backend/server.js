@@ -7,7 +7,7 @@ const app = express();
 const voter = require('./routes/voterRoute');
 const admin = require('./routes/adminRoute');
 
-require('dotenv').config();
+
 
 
 
@@ -17,21 +17,24 @@ require('dotenv').config();
 //   credentials: true
 // }));
 
-// Routes
-app.use('/voter', voter);
-app.use('/admin', admin);
-
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// Routes
+app.use('/voter', voter);
+app.use('/admin', admin);
+
 const buildPath = path.join(__dirname, '../frontend/dist');
 app.use(express.static(buildPath));
 
-app.use((req, res, next) => {
-  res.sendFile(path.join(buildPath, 'index.html'));
-}); 
+app.get(/.*/, (req, res) => {
+  res.sendFile(path.join(buildPath, "index.html"));
+});
+
+
+
 
 // Start server
 const PORT = process.env.PORT || 5000;

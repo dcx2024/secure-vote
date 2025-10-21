@@ -1,30 +1,31 @@
 const Vote = require('../models/voteModel');
-const bcrypt=require('bcrypt')
-const knex=require('../config/db')
+const knex = require('../config/db')
 const voteController = {
- 
+
   async castVote(req, res) {
     try {
       const { poll_id, candidate_id, visitor_id } = req.body;
+      const  voter_id  = req.user.id
+      const ip_address = req.ip
 
-      const ip_address= req.ip
-      
 
       if (!poll_id || !candidate_id) {
         return res.status(400).json({ error: 'Missing required fields' });
       }
 
-      const existingVote = await knex("votes").where({ poll_id,visitor_id, ip_address}).first();
 
-      if(existingVote){
-        return res.status(400).json({error: "This user has already voted"})
+      const existingVote = await knex("votes").where({ poll_id, visitor_id, ip_address,voter_id }).first();
+
+      if (existingVote) {
+        return res.status(400).json({ error: "This user has already voted" })
       }
 
       const vote = await Vote.castVote({
         poll_id,
         candidate_id,
-          ip_address,
-          visitor_id
+        ip_address,
+        visitor_id,
+        voter_id
       });
 
       return res.status(201).json({ message: 'Vote cast successfully', vote });
@@ -40,7 +41,7 @@ const voteController = {
    */
   async getPollResults(req, res) {
     try {
-      const  admin_id  = req.user.id;
+      const admin_id = req.user.id;
       const results = await Vote.getPollsWithResultsByToken(admin_id);
 
       return res.json(results);

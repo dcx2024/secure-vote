@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require("uuid");
 const createPoll = async (req, res) => {
   try {
     const { position, description, candidates } = req.body;
+    const {voter_id} = req.user.id
 
     if (!position || !candidates) {
       return res.status(400).json({ message: "Position or candidates missing" });
@@ -43,8 +44,8 @@ const generateShareLink =async(req,res)=>{
 
       // Generate or refresh token
       const token = await Poll.generateShareToken(admin_id);
-        const BASE_URL='https://secure-vote-frontend-11q2.onrender.com/'
-      const shareableLink = `${BASE_URL}/#/vote/${token}`;
+        const BASE_URL='http://localhost:5000'
+      const shareableLink = `${BASE_URL}/?token=${token}`;
       return res.status(200).json({
         message: "Shareable link generated successfully",
         link: shareableLink

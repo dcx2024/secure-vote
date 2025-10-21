@@ -7,9 +7,9 @@ const PollResults = ({ token }) => {
 
   useEffect(() => {
     const fetchResults = async () => {
-      const api_url="https://secure-vote-bawo.onrender.com"
+      const API_URL="http://localhost:5000"
       try {
-        const res = await fetch(`${api_url}/voter/result`, {
+        const res = await fetch(`${API_URL}/voter/result`, {
           method: "GET",
           credentials: "include", // important so cookie is sent
         });
@@ -60,7 +60,7 @@ const PollResults = ({ token }) => {
                   >
                     {candidate.image && (
                       <img
-                        src={`http://localhost:3000${candidate.image}`}
+                        src={`http://localhost:5000${candidate.image}`}
                         alt={candidate.name}
                         className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 object-cover rounded-full mb-2"
                       />

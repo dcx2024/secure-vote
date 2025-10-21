@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AdminLogin = () => {
-  const api_url="https://secure-vote-bawo.onrender.com"
+  const api_url="http://localhost:5000"
   const navigate=useNavigate()
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,7 +32,7 @@ const AdminLogin = () => {
       });
       if (response.ok) {
         const data = await response.json();
-        alert(data.message);
+        toast.success(`${data.message}`);
         navigate('/admin/poll')
       } else {
         console.log("Response is not okay");
@@ -108,7 +109,7 @@ const AdminLogin = () => {
         <p className="text-sm text-gray-600 text-center mt-6">
           Don’t have an account?{" "}
           <a
-            href="/#/admin/signup"
+            href="/admin/signup"
             className="text-blue-600 hover:underline font-medium"
           >
             Sign up

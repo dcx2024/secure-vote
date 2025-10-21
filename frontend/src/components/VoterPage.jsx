@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import FingerprintJS from "@fingerprintjs/fingerprintjs";
 
 const VotePage = () => {
@@ -8,19 +9,18 @@ const VotePage = () => {
 
   const [polls, setPolls] = useState([]);
   const [selectedCandidates, setSelectedCandidates] = useState({});
-  const [message, setMessage] = useState("");
+
   const [visitorId, setVisitorId] = useState("");
 
-  const API_URL = "https://secure-vote-bawo.onrender.com";
+  const API_URL = "http://localhost:5000";
 
-  // 🧩 Load unique fingerprint ID once
+  // Load unique fingerprint ID once
   useEffect(() => {
     const loadFingerprint = async () => {
       try {
         const fp = await FingerprintJS.load();
         const result = await fp.get();
         setVisitorId(result.visitorId);
-        console.log("🆔 Visitor ID:", result.visitorId);
       } catch (err) {
         console.error("FingerprintJS error:", err);
         setMessage("Failed to generate device ID.");
@@ -29,16 +29,14 @@ const VotePage = () => {
     loadFingerprint();
   }, []);
 
-  // 🗳️ Fetch polls by share token
+  // Fetch polls by share token
   useEffect(() => {
     const fetchPolls = async () => {
       try {
         const res = await fetch(`${API_URL}/admin/share/${token}`);
         const data = await res.json();
 
-        if (!res.ok) {
-          throw new Error(data.message || "Failed to fetch polls");
-        }
+        if (!res.ok) throw new Error(data.message || "Failed to fetch polls");
 
         const parsedPolls = data.data.map((poll) => ({
           ...poll,
@@ -55,23 +53,17 @@ const VotePage = () => {
     };
 
     if (token) fetchPolls();
-  }, [token]);
+  }, [token, API_URL]);
 
-  // 🎯 Handle candidate selection per poll
   const handleSelectCandidate = (pollId, e) => {
     const candidateId = e.target.value;
-    setSelectedCandidates((prev) => ({
-      ...prev,
-      [pollId]: candidateId,
-    }));
+    setSelectedCandidates((prev) => ({ ...prev, [pollId]: candidateId }));
   };
 
-  // 🚀 Submit vote
   const handleVote = async (pollId) => {
     const candidateId = selectedCandidates[pollId];
-
     if (!candidateId) {
-      setMessage("⚠️ Please select a candidate before voting.");
+      toast.info("⚠️ Please select a candidate before voting.");
       return;
     }
 
@@ -79,30 +71,28 @@ const VotePage = () => {
       const res = await fetch(`${API_URL}/voter/castVote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // ✅ sends cookies
+        credentials: "include",
         body: JSON.stringify({
           poll_id: pollId,
           candidate_id: candidateId,
-          visitor_id: visitorId, // ✅ fingerprint sent
+          visitor_id: visitorId,
         }),
       });
 
       const data = await res.json();
 
       if (res.status === 401 || res.status === 403) {
-        // 🧭 Redirect to login if not authenticated
-        setMessage("⚠️ Please log in to vote.");
-        setTimeout(() => navigate("/"), 2000);
+        toast.error("Please log in to vote")
+        setTimeout(() => navigate(`/?token=${token}`), 1500); // ✅ keep token
         return;
       }
 
-      if (!res.ok) {
-        throw new Error(data.error || "Vote submission failed");
-      }
-
-      setMessage(`✅ ${data.message}`);
+      if (!res.ok) throw new Error(data.error || "Vote submission failed");
+      toast.success(`${data.message}`)
+      
+      
     } catch (error) {
-      setMessage(error.message);
+      toast.error(`${error.message}`);
     }
   };
 
@@ -145,7 +135,7 @@ const VotePage = () => {
                     <img
                       src={`${API_URL}${candidate.image}`}
                       alt={candidate.name}
-                      className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 object-cover rounded-full border"
+                      className="w-32 h-32 object-cover rounded-full border"
                     />
                   )}
                   <span className="font-medium text-gray-800 text-center">
@@ -159,7 +149,9 @@ const VotePage = () => {
                       selectedCandidates[poll.id || poll._id] ===
                       (candidate.id || candidate._id)
                     }
-                    onChange={(e) => handleSelectCandidate(poll.id || poll._id, e)}
+                    onChange={(e) =>
+                      handleSelectCandidate(poll.id || poll._id, e)
+                    }
                     className="form-radio h-5 w-5 text-blue-600 mt-2"
                   />
                 </label>
@@ -176,15 +168,7 @@ const VotePage = () => {
           </div>
         ))}
 
-        {message && (
-          <p
-            className={`mt-6 text-center text-lg font-medium ${
-              message.startsWith("✅") ? "text-green-600" : "text-red-600"
-            }`}
-          >
-            {message}
-          </p>
-        )}
+        
       </div>
     </div>
   );

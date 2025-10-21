@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // ✅ for navigation
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify"; 
 
 const AdminPolls = () => {
-  const api_url="https://secure-vote-bawo.onrender.com"
+  const api_url="http://localhost:5000"
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [shareLink, setShareLink] = useState("");
-  const navigate = useNavigate(); // ✅ init navigate
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchPolls = async () => {
@@ -49,7 +50,7 @@ const AdminPolls = () => {
 
       setShareLink(data.link);
     } catch (err) {
-      alert(err.message);
+      console.log(err.message);
     }
   };
 
@@ -79,6 +80,14 @@ const AdminPolls = () => {
             className="mt-4 sm:mt-0 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition"
           >
             ➕ Create Poll
+          </button>
+
+          {/* ✅ Create Poll Button */}
+          <button
+            onClick={() => navigate('/result')}
+            className="mt-4 sm:mt-0 px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg shadow-md transition"
+          >
+            Check Result
           </button>
         </div>
 
@@ -144,7 +153,7 @@ const AdminPolls = () => {
                         >
                           {c.image && (
                             <img
-                              src={`http://localhost:3000${c.image}`}
+                              src={`http://localhost:5000${c.image}`}
                               alt={c.name}
                               className="w-12 h-12 object-cover rounded-full border"
                             />

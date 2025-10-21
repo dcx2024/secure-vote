@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Route,
   createBrowserRouter,
@@ -17,19 +16,16 @@ import VotePage from './components/VoterPage';
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path='/' element={<VoterLogin />} />
-      <Route path='/vote/:token' element={<VotePage />} />
-      <Route path='/admin/signup' element={<AdminSignup />} />
-      <Route path='/admin/login' element={<AdminLogin />} />
-      <Route path='/admin/create' element={<CreatePoll />} />
-      <Route path='/admin/poll' element={<AdminPolls />} />
-      <Route path='/result' element={<VoterResult />} />
+      <Route path="/" element={<VoterLogin />} />
+      <Route path="/vote/:token" element={<VotePage />} />
+      <Route path="/admin/signup" element={<AdminSignup />} />
+      <Route path="/admin/login" element={<AdminLogin />} />
+      <Route path="/admin/create" element={<CreatePoll />} />
+      <Route path="/admin/poll" element={<AdminPolls />} />
+      <Route path="/result" element={<VoterResult />} />
     </>
   )
 );
 
-const App = () => {
-  return <RouterProvider router={router} />;
-};
-
+const App = () => <RouterProvider router={router} />;
 export default App;
