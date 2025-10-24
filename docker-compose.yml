@@ -1,0 +1,43 @@
+
+
+services:
+  db:
+    image: postgres:15
+    env_file: ./backend/.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+  backend:
+    build: 
+      context: ./backend
+    env_file: 
+      - ./backend/.env
+    depends_on:
+      - db
+    command: sh -c "npx wait-port db:5432 && npm run migrate && npm start"
+    ports:
+      - "5000:5000"
+    networks:
+      - app-network
+
+  frontend:
+    build: 
+      context: ./frontend
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+    networks:
+      - app-network
+
+volumes:
+  pgdata:
+
+networks:
+  app-network:
+    driver: bridge
+    

@@ -8,9 +8,6 @@ const voter = require('./routes/voterRoute');
 const admin = require('./routes/adminRoute');
 
 
-
-
-
 // Optional: only if your frontend is on a different domain
 // app.use(cors({
 //   origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
@@ -22,9 +19,10 @@ app.use(express.json());
 app.use(cookieParser());
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.set('trust proxy', true)
 // Routes
-app.use('/voter', voter);
-app.use('/admin', admin);
+app.use('/api/voter', voter);
+app.use('/api/admin', admin);
 
 const buildPath = path.join(__dirname, '../frontend/dist');
 app.use(express.static(buildPath));

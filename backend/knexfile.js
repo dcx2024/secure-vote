@@ -8,20 +8,16 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      /* connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }*/
-      
-      host: 'localhost',
-      user: process.env.DBUSER,
-      password: process.env.DBPASSWORD,
-      database: process.env.DBNAME,
-      port:5432
-      
-    },
-    migrations:{
+      host: process.env.DB_HOST || 'localhost',
+      user: process.env.POSTGRES_USER,
+      password: process.env.POSTGRES_PASSWORD,
+      database: process.env.POSTGRES_DB,
+      port: process.env.DB_PORT || 5432,
+    }, 
+    migrations: {
       directory: './migrations'
     },
-    seeds:{
+    seeds: {
       directory: './seeds'
     }
   },
@@ -30,7 +26,7 @@ module.exports = {
     client: 'postgresql',
     connection: {
       database: 'my_db',
-      user:     'username',
+      user: 'username',
       password: 'password'
     },
     pool: {
@@ -45,9 +41,9 @@ module.exports = {
   production: {
     client: 'pg',
     connection: {
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-},
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    },
     pool: {
       min: 2,
       max: 10

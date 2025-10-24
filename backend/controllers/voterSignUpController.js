@@ -5,7 +5,7 @@ const voter= require('../models/votersModel')
 const signup= async(req,res)=>{
     try{
         const {full_name,phone_no,visitor_id}= req.body
-        const ip = req.ip;
+        const ip =req.headers['x-real-ip'] || req.ip;
         
         const existingVoter = await knex('voters').where({full_name,phone_no}).first()
         if(existingVoter){
