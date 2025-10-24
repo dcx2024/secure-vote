@@ -9,7 +9,7 @@ const PollResults = ({ token }) => {
     const fetchResults = async () => {
       const API_URL="http://localhost:5000"
       try {
-        const res = await fetch(`${API_URL}/voter/result`, {
+        const res = await fetch(`${API_URL}/api/voter/result`, {
           method: "GET",
           credentials: "include", // important so cookie is sent
         });

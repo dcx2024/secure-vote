@@ -33,7 +33,7 @@ const VotePage = () => {
   useEffect(() => {
     const fetchPolls = async () => {
       try {
-        const res = await fetch(`${API_URL}/admin/share/${token}`);
+        const res = await fetch(`${API_URL}/api/admin/share/${token}`);
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.message || "Failed to fetch polls");
@@ -68,7 +68,7 @@ const VotePage = () => {
     }
 
     try {
-      const res = await fetch(`${API_URL}/voter/castVote`, {
+      const res = await fetch(`${API_URL}/api/voter/castVote`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

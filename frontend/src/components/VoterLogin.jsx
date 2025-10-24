@@ -42,7 +42,7 @@ const VoterLogin = () => {
     e.preventDefault();
     const API_URL = "http://localhost:5000"
     try {
-      const response = await fetch(`${API_URL}/voter/voterLogin`, {
+      const response = await fetch(`${API_URL}/api/voter/voterLogin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

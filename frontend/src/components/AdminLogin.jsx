@@ -22,7 +22,7 @@ const AdminLogin = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${api_url}/admin/login`, {
+      const response = await fetch(`${api_url}/api/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

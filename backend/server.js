@@ -9,10 +9,10 @@ const admin = require('./routes/adminRoute');
 
 
 // Optional: only if your frontend is on a different domain
-// app.use(cors({
-//   origin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
-//   credentials: true
-// }));
+ app.use(cors({
+   origin: 'http://localhost:8080',
+   credentials: true
+ }));
 
 // Middleware
 app.use(express.json());
@@ -24,12 +24,6 @@ app.set('trust proxy', true)
 app.use('/api/voter', voter);
 app.use('/api/admin', admin);
 
-const buildPath = path.join(__dirname, '../frontend/dist');
-app.use(express.static(buildPath));
-
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(buildPath, "index.html"));
-});
 
 
 

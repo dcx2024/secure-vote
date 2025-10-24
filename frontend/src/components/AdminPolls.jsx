@@ -13,7 +13,7 @@ const AdminPolls = () => {
   useEffect(() => {
     const fetchPolls = async () => {
       try {
-        const res = await fetch(`${api_url}/admin/adminPolls`, {
+        const res = await fetch(`${api_url}/api/admin/adminPolls`, {
           method: "GET",
           credentials: "include",
         });
@@ -37,7 +37,7 @@ const AdminPolls = () => {
 
   const handleShare = async () => {
     try {
-      const res = await fetch(`${api_url}/admin/share`, {
+      const res = await fetch(`${api_url}/api/admin/share`, {
         method: "POST",
         credentials: "include",
       });

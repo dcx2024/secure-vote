@@ -48,7 +48,7 @@ const API_URL="http://localhost:5000"
         }
       });
 
-      const res = await fetch(`${API_URL}/admin/createPoll`, {
+      const res = await fetch(`${API_URL}/api/admin/createPoll`, {
         method: "POST",
         body: formData,
         credentials: "include",
