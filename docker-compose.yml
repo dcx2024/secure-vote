@@ -1,5 +1,3 @@
-
-
 services:
   db:
     image: postgres:15
@@ -24,13 +22,16 @@ services:
     networks:
       - app-network
 
-  frontend:
+  frontend-builder:
     build: 
       context: ./frontend
+      dockerfile: dockerfile
+      container_name: frontend-builder
     depends_on:
       - backend
-    ports:
-      - "8080:80"
+    command: sh -c "npm ci && npm run build"
+    volumes:
+      - ./frontend/dist:/app/dist
     networks:
       - app-network
 
