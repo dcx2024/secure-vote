@@ -26,7 +26,7 @@ services:
     build: 
       context: ./frontend
       dockerfile: dockerfile
-      container_name: frontend-builder
+    container_name: frontend-builder
     depends_on:
       - backend
     command: sh -c "npm ci && npm run build"
