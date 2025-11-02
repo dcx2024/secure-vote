@@ -8,6 +8,7 @@ const Voter={
         return voter;
     },
     
+    
 }
 
 module.exports =Voter;
