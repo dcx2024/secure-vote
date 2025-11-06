@@ -133,7 +133,7 @@ const VotePage = () => {
                 >
                   {candidate.image && (
                     <img
-                      src={`${API_URL}${candidate.image}`}
+                      src={`${candidate.image}`}
                       alt={candidate.name}
                       className="w-32 h-32 object-cover rounded-full border"
                     />

@@ -1,11 +1,14 @@
-const Poll = require('../models/pollModel')
-require('dotenv').config()
+const Poll = require('../models/pollModel');
+require('dotenv').config();
+const { uploadToS3 } = require('../middleware/awsUpload');
 const { v4: uuidv4 } = require("uuid");
 
 const createPoll = async (req, res) => {
   try {
     const { position, description, candidates } = req.body;
-    
+
+  
+
 
     if (!position || !candidates) {
       return res.status(400).json({ message: "Position or candidates missing" });
@@ -13,12 +16,21 @@ const createPoll = async (req, res) => {
 
     const parsedCandidates = JSON.parse(candidates);
 
-    // Give each candidate a unique id
-    const finalCandidates = parsedCandidates.map((candidate, index) => ({
-      id: uuidv4(), // 👈 unique id
-      name: candidate.name,
-      image: req.files[index] ? `/uploads/${req.files[index].filename}` : null,
-    }));
+    //  Upload each candidate image to S3 (if file exists)
+    const finalCandidates = await Promise.all(
+      parsedCandidates.map(async (candidate, index) => {
+        let imageUrl = null;
+        if (req.files && req.files[index]) {
+          imageUrl = await uploadToS3(req.files[index]); //  upload to S3 here
+        }
+
+        return {
+          id: uuidv4(),
+          name: candidate.name,
+          image: imageUrl,
+        };
+      })
+    );
 
     const newPoll = await Poll.create({
       position,
@@ -35,6 +47,7 @@ const createPoll = async (req, res) => {
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
 
 
 
@@ -94,4 +107,4 @@ module.exports={
   generateShareLink,
   fetchSharedPolls,
   fetchPollsByAdmin,
-}
+} 

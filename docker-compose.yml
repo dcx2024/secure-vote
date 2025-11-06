@@ -17,21 +17,19 @@ services:
     depends_on:
       - db
     command: sh -c "npx wait-port db:5432 && npm run migrate && npm start"
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
     networks:
       - app-network
 
-  frontend-builder:
-    build: 
+  frontend:
+    build:
       context: ./frontend
-      dockerfile: dockerfile
-    container_name: frontend-builder
+      dockerfile: Dockerfile
+    expose:
+      - "80"
     depends_on:
       - backend
-    command: sh -c "npm ci && npm run build"
-    volumes:
-      - ./frontend/dist:/app/dist
     networks:
       - app-network
 

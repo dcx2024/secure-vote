@@ -1,6 +1,7 @@
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
+const AWS=require('aws-sdk')
 
 // Ensure upload directory exists
 const uploadPath = path.join(__dirname, '../uploads');
@@ -28,3 +29,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 module.exports = upload;
+
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION
+})
+
+const s3= new AWS.S3();
+

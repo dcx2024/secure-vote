@@ -153,7 +153,7 @@ const AdminPolls = () => {
                         >
                           {c.image && (
                             <img
-                              src={`http://localhost:5000${c.image}`}
+                              src={`${c.image}`}
                               alt={c.name}
                               className="w-12 h-12 object-cover rounded-full border"
                             />
