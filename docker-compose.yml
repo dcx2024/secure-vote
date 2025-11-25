@@ -10,8 +10,7 @@ services:
       - app-network
 
   backend:
-    build: 
-      context: ./backend
+    image: synerr0/backend:latest
     env_file: 
       - ./backend/.env
     depends_on:
@@ -19,13 +18,13 @@ services:
     command: sh -c "npx wait-port db:5432 && npm run migrate && npm start"
     expose:
       - "5000"
+    ports:
+      - "5000:5000"
     networks:
       - app-network
 
   frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
+    image: synerr0/frontend:latest
     expose:
       - "80"
     ports:
