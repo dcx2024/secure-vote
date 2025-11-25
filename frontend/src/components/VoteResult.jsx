@@ -7,7 +7,7 @@ const PollResults = ({ token }) => {
 
   useEffect(() => {
     const fetchResults = async () => {
-      const API_URL="http://localhost:5000"
+      const API_URL="http://backend:5000"
       try {
         const res = await fetch(`${API_URL}/api/voter/result`, {
           method: "GET",

@@ -12,7 +12,7 @@ const VotePage = () => {
 
   const [visitorId, setVisitorId] = useState("");
 
-  const API_URL = "http://localhost:5000";
+  const API_URL = "http://backend:5000";
 
   // Load unique fingerprint ID once
   useEffect(() => {

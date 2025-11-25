@@ -7,7 +7,7 @@ const CreatePoll = () => {
   const [description, setDescription] = useState("");
   const [candidates, setCandidates] = useState([{ name: "", image: null }]);
   const [message, setMessage] = useState("");
-const API_URL="http://localhost:5000"
+const API_URL="http://backend:5000"
   // Add new candidate field
   const addCandidate = () => {
     setCandidates([...candidates, { name: "", image: null }]);

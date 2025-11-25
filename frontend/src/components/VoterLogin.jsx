@@ -40,7 +40,7 @@ const VoterLogin = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const API_URL = "http://localhost:5000"
+    const API_URL = "http://backend:5000"
     try {
       const response = await fetch(`${API_URL}/api/voter/voterLogin`, {
         method: "POST",
