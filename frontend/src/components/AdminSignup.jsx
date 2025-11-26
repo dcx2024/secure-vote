@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const AdminSignup = () => {
-  const api_url="http://backend:5000"
+  const api_url="http://localhost:5000"
   const navigation=useNavigate()
   const [showPassword, setShowPassword] = useState(false);
 
