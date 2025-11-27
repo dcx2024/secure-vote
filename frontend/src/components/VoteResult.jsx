@@ -7,7 +7,7 @@ const PollResults = ({ token }) => {
 
   useEffect(() => {
     const fetchResults = async () => {
-      const API_URL="http://backend:5000"
+      const API_URL=""
       try {
         const res = await fetch(`${API_URL}/api/voter/result`, {
           method: "GET",
@@ -60,7 +60,7 @@ const PollResults = ({ token }) => {
                   >
                     {candidate.image && (
                       <img
-                        src={`http://localhost:5000${candidate.image}`}
+                        src={`${candidate.image}`}
                         alt={candidate.name}
                         className="w-32 h-32 sm:w-36 sm:h-36 md:w-40 md:h-40 object-cover rounded-full mb-2"
                       />

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify"; 
 
 const AdminPolls = () => {
-  const api_url="http://localhost:5000"
+  const api_url=""
   const [polls, setPolls] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
