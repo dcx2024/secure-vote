@@ -10,7 +10,7 @@ const admin = require('./routes/adminRoute');
 
 // Optional: only if your frontend is on a different domain
  app.use(cors({
-   origin: 'http://localhost:3000',
+   origin: ['http://localhost:3000','https://securevote.work.gd','http://securevote.work.gd'],
    credentials: true
  }));
 
