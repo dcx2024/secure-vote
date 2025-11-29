@@ -23,8 +23,8 @@ const signup= async(req,res)=>{
         const token=jwt.sign({id: newVoter.id,ip_address: newVoter.ip_address,visitor_id: newVoter.visitor_id}, process.env.JWT_SECRET, {expiresIn: '1h',algorithm:'HS256'})
         res.cookie('voterToken', token, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'None',
+            secure: false,
+            sameSite: 'Lax',
             maxAge: 24 * 60 * 60 * 100
         })
         

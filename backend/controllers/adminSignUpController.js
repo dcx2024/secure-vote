@@ -13,8 +13,8 @@ const login = async (req, res) => {
         const token = jwt.sign({ id: existing.id, email: existing.email }, process.env.JWT_SECRET, { expiresIn: "1h",algorithm: 'HS256' })
         res.cookie('token', token, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'None',
+            secure: false,
+            sameSite: 'Lax',
             maxAge: 24 * 60 * 60 * 100
         })
         res.status(200).json({ message: "Login successful" })
@@ -46,8 +46,8 @@ const signUp = async (req, res) => {
 
         res.cookie('token', token, {
             httpOnly: true,
-            secure: true,
-            sameSite: 'None',
+            secure: false,
+            sameSite: 'Lax',
             maxAge: 24 * 60 * 60 * 100
         })
 
